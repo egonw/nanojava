@@ -35,7 +35,7 @@ It is also available on DockerHub (https://hub.docker.com/r/aammar/nano-java) fo
 
 If you do not have Docker or if it is an overhead for your use case, you can bundle nanojava library as a standalone jar file.
 
-1. Make sure that JDK 8 and Maven 3.x are installed and ready to go
+1. Make sure that JDK 11 and Maven 3.x are installed and ready to go
 
 2. Clone the current repository
 
@@ -53,11 +53,11 @@ If you do not have Docker or if it is an overhead for your use case, you can bun
 
 4. Now, you will have the standalone jar file in the "target" folder named: 
 
-   nanojava-1.2.0-SNAPSHOT-jar-with-dependencies.jar
+   nanojava-2.0.4-SNAPSHOT-jar-with-dependencies.jar
 
 5. The JAR file is used in the same way as the Docker image in the "Usage" section with replacing:
 
-   "docker run" with "java -jar nanojava-1.2.0-SNAPSHOT-jar-with-dependencies.jar"
+   "docker run" with "java -jar nanojava-2.0.4-SNAPSHOT-jar-with-dependencies.jar"
 
    and make sure you provide the absolute paths for your files in this case.
 
