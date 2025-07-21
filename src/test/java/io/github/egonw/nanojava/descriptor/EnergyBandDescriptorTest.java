@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2025  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,8 +16,13 @@
  */
 package io.github.egonw.nanojava.descriptor;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleArrayResult;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
@@ -30,12 +35,11 @@ import io.github.egonw.nanojava.data.Material;
 import io.github.egonw.nanojava.data.MaterialType;
 import io.github.egonw.nanojava.data.measurement.EndPoints;
 import io.github.egonw.nanojava.data.measurement.MeasurementValue;
-import junit.framework.Assert;
 
 public class EnergyBandDescriptorTest
 extends MaterialDescriptorTest {
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         setDescriptor(EnergyBandDescriptor.class);
     }
@@ -49,14 +53,14 @@ extends MaterialDescriptorTest {
             )
         );
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertTrue(result instanceof DoubleArrayResult);
+        assertNotNull(result);
+        assertTrue(result instanceof DoubleArrayResult);
         DoubleArrayResult daResult = (DoubleArrayResult)result;
-        Assert.assertEquals(2, daResult.length());
-        Assert.assertEquals(-3.7, daResult.get(0), 0.0001);
-        Assert.assertEquals(-7.25, daResult.get(1), 0.0001);
+        assertEquals(2, daResult.length());
+        assertEquals(-3.7, daResult.get(0), 0.0001);
+        assertEquals(-7.25, daResult.get(1), 0.0001);
     }
 
     @Test
@@ -69,14 +73,14 @@ extends MaterialDescriptorTest {
         );
         material.setSize(new MeasurementValue(EndPoints.SIZE, 10.0, 5.0, LengthUnit.NM));
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertTrue(result instanceof DoubleArrayResult);
+        assertNotNull(result);
+        assertTrue(result instanceof DoubleArrayResult);
         DoubleArrayResult daResult = (DoubleArrayResult)result;
-        Assert.assertEquals(2, daResult.length());
-        Assert.assertEquals(Double.NaN, daResult.get(0), 0.0001);
-        Assert.assertEquals(Double.NaN, daResult.get(1), 0.0001);
+        assertEquals(2, daResult.length());
+        assertEquals(Double.NaN, daResult.get(0), 0.0001);
+        assertEquals(Double.NaN, daResult.get(1), 0.0001);
     }
 
     @Test
@@ -89,14 +93,14 @@ extends MaterialDescriptorTest {
         );
         material.setSize(new MeasurementValue(EndPoints.SIZE, 40.0, 5.0, LengthUnit.NM));
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertTrue(result instanceof DoubleArrayResult);
+        assertNotNull(result);
+        assertTrue(result instanceof DoubleArrayResult);
         DoubleArrayResult daResult = (DoubleArrayResult)result;
-        Assert.assertEquals(2, daResult.length());
-        Assert.assertEquals(-3.7, daResult.get(0), 0.0001);
-        Assert.assertEquals(-7.25, daResult.get(1), 0.0001);
+        assertEquals(2, daResult.length());
+        assertEquals(-3.7, daResult.get(0), 0.0001);
+        assertEquals(-7.25, daResult.get(1), 0.0001);
     }
 
     @Test
@@ -109,14 +113,14 @@ extends MaterialDescriptorTest {
         );
         material.setSize(new MeasurementValue(EndPoints.SIZE, 40.0, 5.0, LengthUnit.NM));
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertTrue(result instanceof DoubleArrayResult);
+        assertNotNull(result);
+        assertTrue(result instanceof DoubleArrayResult);
         DoubleArrayResult daResult = (DoubleArrayResult)result;
-        Assert.assertEquals(2, daResult.length());
-        Assert.assertEquals(-4.0, daResult.get(0), 0.0001);
-        Assert.assertEquals(-6.8, daResult.get(1), 0.0001);
+        assertEquals(2, daResult.length());
+        assertEquals(-4.0, daResult.get(0), 0.0001);
+        assertEquals(-6.8, daResult.get(1), 0.0001);
     }
 
     @Test
@@ -140,9 +144,9 @@ extends MaterialDescriptorTest {
         IDescriptorResult result2 = value2.getValue();
         DoubleArrayResult daResult1 = (DoubleArrayResult)result1;
         DoubleArrayResult daResult2 = (DoubleArrayResult)result2;
-        Assert.assertNotSame(Double.NaN, daResult1.get(0));
-        Assert.assertNotSame(Double.NaN, daResult1.get(1));
-        Assert.assertNotSame(daResult1.get(0), daResult2.get(0));
-        Assert.assertNotSame(daResult1.get(1), daResult2.get(1));
+        assertNotSame(Double.NaN, daResult1.get(0));
+        assertNotSame(Double.NaN, daResult1.get(1));
+        assertNotSame(daResult1.get(0), daResult2.get(0));
+        assertNotSame(daResult1.get(1), daResult2.get(1));
     }
 }

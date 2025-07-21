@@ -1,4 +1,4 @@
-/* Copyright (C) 2011-2022  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2025  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,6 +16,11 @@
  */
 package io.github.egonw.nanojava.data;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +28,8 @@ import io.github.egonw.nanojava.data.measurement.EndPoints;
 import io.github.egonw.nanojava.data.measurement.ErrorlessMeasurementValue;
 import io.github.egonw.nanojava.io.CDKDeserializer;
 import io.github.egonw.nanojava.io.CDKSerializer;
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.xmlcml.cml.element.CMLMoleculeList;
 
@@ -35,20 +40,20 @@ public class MaterialTest {
     @Test
     public void testAlwaysReturnsLabelList() throws Exception {
         Material nm = new Material("GRAPHENE");
-        Assert.assertNotNull(nm.getLabels());
+        assertNotNull(nm.getLabels());
     }
 
     @Test
     public void testChemicalCompisitionWhenEmpty() throws Exception {
         Material nm = new Material("GRAPHENE");
-        Assert.assertNull(nm.getChemicalComposition());
-        Assert.assertNotNull(nm.getType());
+        assertNull(nm.getChemicalComposition());
+        assertNotNull(nm.getType());
     }
 
     @Test
     public void testDefaultConstructor() throws Exception {
         Material nm = new Material();
-        Assert.assertNull(nm.getType());
+        assertNull(nm.getType());
     }
 
     @Test
@@ -57,9 +62,9 @@ public class MaterialTest {
         List<String> labels = new ArrayList<String>();
         labels.add("NM1"); labels.add("CeO2-15");
         nm.setLabels(labels);
-        Assert.assertNotNull(nm.getLabels());
-        Assert.assertEquals(2, nm.getLabels().size());
-        Assert.assertTrue(nm.getLabels().contains("NM1"));
+        assertNotNull(nm.getLabels());
+        assertEquals(2, nm.getLabels().size());
+        assertTrue(nm.getLabels().contains("NM1"));
     }
 
     @Test
@@ -67,8 +72,8 @@ public class MaterialTest {
         Material nm = new Material("GRAPHENE");
         nm.addCharacterization(new ErrorlessMeasurementValue(EndPoints.DIAMETER_TEM, 20.0, LengthUnit.NM));
         nm.addCharacterization(new ErrorlessMeasurementValue(EndPoints.DIAMETER_DLS, 55.0, LengthUnit.NM));
-        Assert.assertNotNull(nm.getCharacterizations());
-        Assert.assertEquals(2, nm.getCharacterizations().size());
+        assertNotNull(nm.getCharacterizations());
+        assertEquals(2, nm.getCharacterizations().size());
     }
 
 	@Test
@@ -80,14 +85,14 @@ public class MaterialTest {
 			.asMaterial();
 
 		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
-		Assert.assertNotNull(cmlMaterial);
+		assertNotNull(cmlMaterial);
 		Material roundTripped = CDKDeserializer.fromCML(cmlMaterial);
-		Assert.assertNotNull(roundTripped);
-        Assert.assertNotNull(roundTripped.getLabels());
-        Assert.assertEquals(1, roundTripped.getLabels().size());
-        Assert.assertEquals(2, roundTripped.getAtomContainerCount());
+		assertNotNull(roundTripped);
+        assertNotNull(roundTripped.getLabels());
+        assertEquals(1, roundTripped.getLabels().size());
+        assertEquals(2, roundTripped.getAtomContainerCount());
         for (IAtomContainer container : roundTripped.atomContainers()) {
-        	Assert.assertNotNull(container.getProperty(Material.ORDER));
+        	assertNotNull(container.getProperty(Material.ORDER));
         }
 	}
 }

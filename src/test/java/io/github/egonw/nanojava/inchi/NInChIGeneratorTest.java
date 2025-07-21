@@ -1,4 +1,4 @@
-/* Copyright (C) 2012  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2012-2025  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,9 +16,28 @@
  */
 package io.github.egonw.nanojava.inchi;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
+import com.github.jqudt.onto.units.LengthUnit;
+
+import io.github.egonw.nanojava.data.Material;
+import io.github.egonw.nanojava.data.MaterialBuilder;
+import io.github.egonw.nanojava.data.measurement.EndPoints;
+import io.github.egonw.nanojava.data.measurement.ErrorlessMeasurementValue;
+
 public class NInChIGeneratorTest {
 
-	public void generate() {
-		
+	@Test
+	public void generate() throws Exception {
+		Material material = MaterialBuilder.type("METALOXIDE")
+			.label("silica nanoparticles with gold coating")
+			.componentFromSMILES(1, "O=[Si]=O", "SPHERE", "AMORPHOUS", new ErrorlessMeasurementValue(EndPoints.DIAMETER, 20, LengthUnit.NM))
+			.componentFromSMILES(2, "[Au]", "SHELL", new ErrorlessMeasurementValue(EndPoints.THICKNESS, 2, LengthUnit.NM))
+			.asMaterial();
+
+		String nanoInChI = NInChIGenerator.generator(material);
+		assertNotNull(nanoInChI);
 	}
 }

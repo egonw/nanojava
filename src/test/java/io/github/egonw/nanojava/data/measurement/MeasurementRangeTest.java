@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2025  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,16 +16,16 @@
  */
 package io.github.egonw.nanojava.data.measurement;
 
-import junit.framework.Assert;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MeasurementRangeTest {
 
     @Test
     public void testToString() throws Exception {
         IMeasurement measurement = new MeasurementRange(EndPoints.ZETA_POTENTIAL, 4.5, 6.7, "http://qudt.org/vocab/unit#ElectronVolt");
-        Assert.assertEquals("4.5 - 6.7 eV", measurement.getString());
+        assertEquals("4.5 - 6.7 eV", measurement.getString());
     }
 
 }

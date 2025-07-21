@@ -1,4 +1,4 @@
-/* Copyright (C) 2011-2022  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2025  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,13 +16,15 @@
  */
 package io.github.egonw.nanojava.descriptor;
 
-import io.github.egonw.nanojava.data.Material;
-import io.github.egonw.nanojava.data.MaterialType;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
+import org.junit.jupiter.api.Test;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
-import junit.framework.Assert;
+import io.github.egonw.nanojava.data.Material;
+import io.github.egonw.nanojava.data.MaterialType;
 
 public abstract class MaterialDescriptorTest {
 
@@ -45,32 +47,32 @@ public abstract class MaterialDescriptorTest {
     public void testCalculate_Empty() throws Exception {
         Material material = new Material(MaterialType.METALOXIDE);
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertNotSame(0, result.length());
+        assertNotNull(result);
+        assertNotSame(0, result.length());
     }
     
     @Test
     public void testCalculate_Null() throws Exception {
         DescriptorValue value = descriptor.calculate(null);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertNotSame(0, result.length());
+        assertNotNull(result);
+        assertNotSame(0, result.length());
     }
 
     @Test
     public void testParameters() {
     	Object[] params = descriptor.getParameters();
-    	Assert.assertNotNull(params);
+    	assertNotNull(params);
     	String[] names = descriptor.getParameterNames();
-    	Assert.assertNotNull(names);
+    	assertNotNull(names);
     }
 
     @Test
     public void testGetDescriptorType() {
     	IDescriptorResult type = descriptor.getDescriptorResultType();
-    	Assert.assertNotNull(type);
+    	assertNotNull(type);
     }
 }

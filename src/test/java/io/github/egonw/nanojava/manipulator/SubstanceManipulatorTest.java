@@ -16,30 +16,34 @@
  */
 package io.github.egonw.nanojava.manipulator;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.jupiter.api.Test;
+
+import com.github.jqudt.onto.units.LengthUnit;
 
 import io.github.egonw.nanojava.data.Material;
 import io.github.egonw.nanojava.data.measurement.EndPoints;
 import io.github.egonw.nanojava.data.measurement.ErrorlessMeasurementValue;
-import org.junit.Test;
-
-import com.github.jqudt.onto.units.LengthUnit;
 
 public class SubstanceManipulatorTest {
 
     @Test
     public void testAlwaysReturnsLabelList() throws Exception {
         Material nm = new Material("GRAPHENE");
-        Assert.assertNotNull(SubstanceManipulator.getLabels(nm));
+        assertNotNull(SubstanceManipulator.getLabels(nm));
     }
 
     @Test
     public void testChemicalCompisitionWhenEmpty() throws Exception {
         Material nm = new Material("GRAPHENE");
-        Assert.assertNull(SubstanceManipulator.getChemicalComposition(nm));
+        assertNull(SubstanceManipulator.getChemicalComposition(nm));
     }
 
     @Test
@@ -48,9 +52,9 @@ public class SubstanceManipulatorTest {
         List<String> labels = new ArrayList<String>();
         labels.add("NM1"); labels.add("CeO2-15");
         SubstanceManipulator.setLabels(nm, labels);
-        Assert.assertNotNull(SubstanceManipulator.getLabels(nm));
-        Assert.assertEquals(2, SubstanceManipulator.getLabels(nm).size());
-        Assert.assertTrue(SubstanceManipulator.getLabels(nm).contains("NM1"));
+        assertNotNull(SubstanceManipulator.getLabels(nm));
+        assertEquals(2, SubstanceManipulator.getLabels(nm).size());
+        assertTrue(SubstanceManipulator.getLabels(nm).contains("NM1"));
     }
 
     @Test
@@ -58,8 +62,8 @@ public class SubstanceManipulatorTest {
         Material nm = new Material("GRAPHENE");
         nm.addCharacterization(new ErrorlessMeasurementValue(EndPoints.DIAMETER_TEM, 20.0, LengthUnit.NM));
         nm.addCharacterization(new ErrorlessMeasurementValue(EndPoints.DIAMETER_DLS, 55.0, LengthUnit.NM));
-        Assert.assertNotNull(SubstanceManipulator.getCharacterizations(nm));
-        Assert.assertEquals(2, SubstanceManipulator.getCharacterizations(nm).size());
+        assertNotNull(SubstanceManipulator.getCharacterizations(nm));
+        assertEquals(2, SubstanceManipulator.getCharacterizations(nm).size());
     }
 
 }

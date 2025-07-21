@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2025  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,25 +16,27 @@
  */
 package io.github.egonw.nanojava.descriptor;
 
-import junit.framework.Assert;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import io.github.egonw.nanojava.data.MaterialType;
-import io.github.egonw.nanojava.data.Material;
-import io.github.egonw.nanojava.data.measurement.EndPoints;
-import io.github.egonw.nanojava.data.measurement.MeasurementRange;
-import io.github.egonw.nanojava.data.measurement.MeasurementValue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
 import com.github.jqudt.onto.units.LengthUnit;
 
+import io.github.egonw.nanojava.data.Material;
+import io.github.egonw.nanojava.data.MaterialType;
+import io.github.egonw.nanojava.data.measurement.EndPoints;
+import io.github.egonw.nanojava.data.measurement.MeasurementRange;
+import io.github.egonw.nanojava.data.measurement.MeasurementValue;
+
 public class ParticleSizeDescriptorTest
 extends MaterialDescriptorTest {
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         setDescriptor(ParticleSizeDescriptor.class);
     }
@@ -44,10 +46,10 @@ extends MaterialDescriptorTest {
         Material material = new Material(MaterialType.METALOXIDE);
         material.setSize(new MeasurementRange(EndPoints.SIZE, 10, 20, LengthUnit.NM));
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertEquals(15.0, ((DoubleResult)result).doubleValue(), 0.0001);
+        assertNotNull(result);
+        assertEquals(15.0, ((DoubleResult)result).doubleValue(), 0.0001);
     }
 
     @Test
@@ -55,10 +57,10 @@ extends MaterialDescriptorTest {
         Material material = new Material(MaterialType.METALOXIDE);
         material.setSize(new MeasurementValue(EndPoints.SIZE, 30, 5, LengthUnit.NM));
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertEquals(30.0, ((DoubleResult)result).doubleValue(), 0.0001);
+        assertNotNull(result);
+        assertEquals(30.0, ((DoubleResult)result).doubleValue(), 0.0001);
     }
 
 }

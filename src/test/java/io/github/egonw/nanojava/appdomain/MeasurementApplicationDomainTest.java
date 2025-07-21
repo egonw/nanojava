@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2025  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,12 +16,15 @@
  */
 package io.github.egonw.nanojava.appdomain;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import io.github.egonw.nanojava.data.measurement.EndPoints;
 import io.github.egonw.nanojava.data.measurement.IMeasurement;
 import io.github.egonw.nanojava.data.measurement.MeasurementRange;
 import io.github.egonw.nanojava.data.measurement.MeasurementValue;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class MeasurementApplicationDomainTest {
 
@@ -32,7 +35,7 @@ public class MeasurementApplicationDomainTest {
         IMeasurement range3 = new MeasurementRange(EndPoints.ZETA_POTENTIAL, 4.0, 7.0, "http://qudt.org/vocab/unit#ElectronVolt");
         MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
         domain.define(range, range2);
-        Assert.assertTrue(domain.inDomain(range3));
+        assertTrue(domain.inDomain(range3));
     }
 
     @Test
@@ -42,7 +45,7 @@ public class MeasurementApplicationDomainTest {
         IMeasurement range3 = new MeasurementRange(EndPoints.ZETA_POTENTIAL, 4.0, 7.0, "http://qudt.org/vocab/unit#ElectronVolt");
         MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
         domain.define(range, range3);
-        Assert.assertFalse(domain.inDomain(range2));
+        assertFalse(domain.inDomain(range2));
     }
 
     @Test
@@ -52,7 +55,7 @@ public class MeasurementApplicationDomainTest {
         IMeasurement value = new MeasurementValue(EndPoints.ZETA_POTENTIAL, 4.0, 1.0, "http://qudt.org/vocab/unit#ElectronVolt");
         MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
         domain.define(range, range2);
-        Assert.assertTrue(domain.inDomain(value));
+        assertTrue(domain.inDomain(value));
     }
 
     @Test
@@ -62,7 +65,7 @@ public class MeasurementApplicationDomainTest {
         IMeasurement value = new MeasurementValue(EndPoints.ZETA_POTENTIAL, 8.0, 1.0, "http://qudt.org/vocab/unit#ElectronVolt");
         MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
         domain.define(range, range2);
-        Assert.assertFalse(domain.inDomain(value));
+        assertFalse(domain.inDomain(value));
     }
 
     @Test
@@ -73,7 +76,7 @@ public class MeasurementApplicationDomainTest {
         MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
         domain.add(range);
         domain.add(range2);
-        Assert.assertTrue(domain.inDomain(range3));
+        assertTrue(domain.inDomain(range3));
     }
 
 }

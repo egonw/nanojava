@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2025  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,8 +16,11 @@
  */
 package io.github.egonw.nanojava.descriptor;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.qsar.result.IntegerResult;
@@ -26,12 +29,11 @@ import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 import io.github.egonw.nanojava.data.Material;
 import io.github.egonw.nanojava.data.MaterialType;
-import junit.framework.Assert;
 
 public class MetalGroupDescriptorTest
 extends MaterialDescriptorTest {
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         setDescriptor(MetalGroupDescriptor.class);
     }
@@ -45,10 +47,10 @@ extends MaterialDescriptorTest {
             )
         );
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertEquals(12, ((IntegerResult)result).intValue());
+        assertNotNull(result);
+        assertEquals(12, ((IntegerResult)result).intValue());
     }
 
     @Test
@@ -60,10 +62,10 @@ extends MaterialDescriptorTest {
             )
         );
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertEquals(8, ((IntegerResult)result).intValue());
+        assertNotNull(result);
+        assertEquals(8, ((IntegerResult)result).intValue());
     }
 
     @Test
@@ -75,10 +77,10 @@ extends MaterialDescriptorTest {
             )
         );
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertEquals((int)Double.NaN, ((IntegerResult)result).intValue());
+        assertNotNull(result);
+        assertEquals((int)Double.NaN, ((IntegerResult)result).intValue());
     }
 
 }

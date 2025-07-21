@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2025  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,8 +16,11 @@
  */
 package io.github.egonw.nanojava.descriptor;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
@@ -26,12 +29,11 @@ import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 import io.github.egonw.nanojava.data.Material;
 import io.github.egonw.nanojava.data.MaterialType;
-import junit.framework.Assert;
 
 public class MetalElementMassDescriptorTest
 extends MaterialDescriptorTest {
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         setDescriptor(MetalElementMassDescriptor.class);
     }
@@ -45,10 +47,10 @@ extends MaterialDescriptorTest {
             )
         );
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertEquals(65.38, ((DoubleResult)result).doubleValue(), 0.02);
+        assertNotNull(result);
+        assertEquals(65.38, ((DoubleResult)result).doubleValue(), 0.02);
     }
 
     @Test
@@ -60,10 +62,10 @@ extends MaterialDescriptorTest {
             )
         );
         DescriptorValue value = descriptor.calculate(material);
-        Assert.assertNotNull(value);
+        assertNotNull(value);
         IDescriptorResult result = value.getValue();
-        Assert.assertNotNull(result);
-        Assert.assertEquals(55.8, ((DoubleResult)result).doubleValue(), 0.1);
+        assertNotNull(result);
+        assertEquals(55.8, ((DoubleResult)result).doubleValue(), 0.1);
     }
 
 }

@@ -1,4 +1,4 @@
-/* Copyright (C) 2012  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2012-2025  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,11 +16,14 @@
  */
 package io.github.egonw.nanojava.io;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
@@ -47,30 +50,30 @@ public class SerializationTest {
         labels.add("NM1"); labels.add("CeO2-15");
         material.setLabels(labels);
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
-		Assert.assertNotNull(cmlMaterial);
+		assertNotNull(cmlMaterial);
 		Material roundTripped = Deserializer.fromCML(cmlMaterial);
-		Assert.assertNotNull(roundTripped);
-        Assert.assertNotNull(roundTripped.getLabels());
-        Assert.assertEquals(2, roundTripped.getLabels().size());
-        Assert.assertTrue(roundTripped.getLabels().contains("NM1"));
-        Assert.assertTrue(roundTripped.getLabels().contains("CeO2-15"));
+		assertNotNull(roundTripped);
+        assertNotNull(roundTripped.getLabels());
+        assertEquals(2, roundTripped.getLabels().size());
+        assertTrue(roundTripped.getLabels().contains("NM1"));
+        assertTrue(roundTripped.getLabels().contains("CeO2-15"));
 	}
 
 	@Test
 	public void roundTripType() {
 		Material material = new Material("METALOXIDE");
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
-		Assert.assertNotNull(cmlMaterial);
+		assertNotNull(cmlMaterial);
 		Material roundTripped = Deserializer.fromCML(cmlMaterial);
-		Assert.assertNotNull(roundTripped);
-		Assert.assertEquals(MaterialType.METALOXIDE, roundTripped.getType());
+		assertNotNull(roundTripped);
+		assertEquals(MaterialType.METALOXIDE, roundTripped.getType());
 
 		material = new Material("GRAPHENE");
 		cmlMaterial = Serializer.toCML(material);
-		Assert.assertNotNull(cmlMaterial);
+		assertNotNull(cmlMaterial);
 		roundTripped = Deserializer.fromCML(cmlMaterial);
-		Assert.assertNotNull(roundTripped);
-		Assert.assertEquals(MaterialType.GRAPHENE, roundTripped.getType());
+		assertNotNull(roundTripped);
+		assertEquals(MaterialType.GRAPHENE, roundTripped.getType());
 	}
 
 	@Test
@@ -82,12 +85,12 @@ public class SerializationTest {
         	)
         );
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
-		Assert.assertNotNull(cmlMaterial);
+		assertNotNull(cmlMaterial);
 		Material roundTripped = Deserializer.fromCML(cmlMaterial);
-		Assert.assertNotNull(roundTripped);
+		assertNotNull(roundTripped);
         IMolecularFormula molForm = roundTripped.getChemicalComposition();
-        Assert.assertNotNull(molForm);
-        Assert.assertEquals("CeO2", MolecularFormulaManipulator.getString(molForm));
+        assertNotNull(molForm);
+        assertEquals("CeO2", MolecularFormulaManipulator.getString(molForm));
 	}
 
 	@Test
@@ -95,10 +98,10 @@ public class SerializationTest {
 		Material material = new Material("METALOXIDE");
 		material.setSize(new MeasurementValue(EndPoints.SIZE, 20.0, 7, LengthUnit.NM));
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
-		Assert.assertNotNull(cmlMaterial);
+		assertNotNull(cmlMaterial);
 		Material roundTripped = Deserializer.fromCML(cmlMaterial);
-		Assert.assertNotNull(roundTripped);
-		Assert.assertEquals(20.0, ((IErrorlessMeasurementValue)roundTripped.getSize()).getValue(), 0.1);
+		assertNotNull(roundTripped);
+		assertEquals(20.0, ((IErrorlessMeasurementValue)roundTripped.getSize()).getValue(), 0.1);
 	}
 
 	@Test
@@ -107,14 +110,14 @@ public class SerializationTest {
 		material.addCharacterization(new MeasurementValue(EndPoints.DIAMETER_TEM, 20.0, 7, LengthUnit.NM));
 		material.addCharacterization(new MeasurementValue(EndPoints.DIAMETER_DLS, 55.3, 14.3, LengthUnit.NM));
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
-		Assert.assertNotNull(cmlMaterial);
+		assertNotNull(cmlMaterial);
 		Material roundTripped = Deserializer.fromCML(cmlMaterial);
-		Assert.assertNotNull(roundTripped);
-		Assert.assertEquals(20.0,
+		assertNotNull(roundTripped);
+		assertEquals(20.0,
 			((IErrorlessMeasurementValue)roundTripped.getCharacterizations().get(EndPoints.DIAMETER_TEM)).getValue(),
 			0.1
 		);
-		Assert.assertEquals(55.3,
+		assertEquals(55.3,
 			((IErrorlessMeasurementValue)roundTripped.getCharacterizations().get(EndPoints.DIAMETER_DLS)).getValue(),
 			0.1
 		);
@@ -128,10 +131,10 @@ public class SerializationTest {
 			UnitFactory.getInstance().getUnit("http://qudt.org/vocab/unit#Percent")
 		));
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
-		Assert.assertNotNull(cmlMaterial);
+		assertNotNull(cmlMaterial);
 		Material roundTripped = Deserializer.fromCML(cmlMaterial);
-		Assert.assertNotNull(roundTripped);
-		Assert.assertEquals(95,
+		assertNotNull(roundTripped);
+		assertEquals(95,
 			((IErrorlessMeasurementValue)roundTripped.getCharacterizations().get(EndPoints.PURITY)).getValue(),
 			0.1
 		);
@@ -142,10 +145,10 @@ public class SerializationTest {
 		Material material = new Material("METALOXIDE");
 		material.setZetaPotential(new MeasurementValue(EndPoints.ZETA_POTENTIAL, -45.0, 3, EnergyUnit.EV));
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
-		Assert.assertNotNull(cmlMaterial);
+		assertNotNull(cmlMaterial);
 		Material roundTripped = Deserializer.fromCML(cmlMaterial);
-		Assert.assertNotNull(roundTripped);
-		Assert.assertEquals(-45.0, ((IErrorlessMeasurementValue)roundTripped.getZetaPotential()).getValue(), 0.1);
+		assertNotNull(roundTripped);
+		assertEquals(-45.0, ((IErrorlessMeasurementValue)roundTripped.getZetaPotential()).getValue(), 0.1);
 	}
 
 	@Test
@@ -154,11 +157,11 @@ public class SerializationTest {
 		materials.add(new Material("GRAPHENE"));
 		materials.add(new Material("METALOXIDE"));
 		CMLList list = Serializer.toCML(materials);
-		Assert.assertNotNull(list);
+		assertNotNull(list);
 		List<Material> roundTripped = Deserializer.fromCML(list);
-		Assert.assertNotNull(roundTripped);
-		Assert.assertEquals(2, roundTripped.size());
-		Assert.assertEquals(MaterialType.GRAPHENE, roundTripped.get(0).getType());
-		Assert.assertEquals(MaterialType.METALOXIDE, roundTripped.get(1).getType());
+		assertNotNull(roundTripped);
+		assertEquals(2, roundTripped.size());
+		assertEquals(MaterialType.GRAPHENE, roundTripped.get(0).getType());
+		assertEquals(MaterialType.METALOXIDE, roundTripped.get(1).getType());
 	}
 }
